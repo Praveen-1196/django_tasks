@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Student
+import cloudinary
 
 # Create your views here.
 
@@ -26,6 +27,7 @@ def student_create(request):
     name = request.POST.get('name')
     age = request.POST.get('age')
     photo = request.FILES.get('photo')
+    img_url=cloudinary.uploader.upload(photo)
 
     if not name or not age or not photo:
         return JsonResponse({'error': 'All fields (name, age, photo) are required'}, status=400)
@@ -38,7 +40,7 @@ def student_create(request):
     if photo.size > MAX_FILE_SIZE:
         return JsonResponse({'error': 'Photo exceeds max size of 5 MB'}, status=400)
 
-    student = Student(name=name, age=age, photo=photo)
+    student = Student(name=name, age=age, photo=img_url["secure_url"])
     student.save()
     return JsonResponse({'id': student.id, 'message': 'Student created'})
 

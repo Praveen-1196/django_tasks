@@ -13,7 +13,7 @@ def validate_file_size(value):
 class Student(models.Model):
     name = models.CharField(max_length=100)
     age = models.PositiveIntegerField()
-    photo = models.FileField(upload_to='photos/', validators=[validate_file_size])
+    photo =models.URLField(default="pic")
 
     def __str__(self):
         return self.name

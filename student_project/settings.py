@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 import environ
+import cloudinary
 
 from pathlib import Path
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'students',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +134,8 @@ MEDIA_URL='/media/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+cloudinary.config(
+    cloud_name=env('cloudname'),
+    api_key=env('APIKEY'),
+    api_secret=env('APISECRET')
+)
