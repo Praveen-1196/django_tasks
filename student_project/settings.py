@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'students',
     'cloudinary',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'student_project.urls'
@@ -139,3 +142,6 @@ cloudinary.config(
     api_key=env('APIKEY'),
     api_secret=env('APISECRET')
 )
+
+
+CORS_ALLOW_ALL_ORIGINS = True
