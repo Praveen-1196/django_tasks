@@ -5,5 +5,6 @@ urlpatterns=[
     path('student/',views.student_list),
     path('students/create/',views.student_create),
     path('students/<int:pk>/update/',views.student_update),
-    path('students/<int:pk>/delete/',views.student_delete)
+    path('students/<int:pk>/delete/',views.student_delete),
+    path('login/', views.student_login)
 ]

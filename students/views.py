@@ -82,3 +82,26 @@ def student_delete(request, pk):
     student = get_object_or_404(Student, pk=pk)
     student.delete()
     return JsonResponse({'message': 'Student deleted'})
+
+
+
+@csrf_exempt
+def student_login(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST method required'}, status=405)
+
+    data = json.loads(request.body)
+    name = data.get('name')
+    age = data.get('age')
+
+    try:
+        student = Student.objects.get(name=name, age=age)
+        return JsonResponse({
+            'message': 'Login successful',
+            'id': student.id,
+            'name': student.name,
+            'age': student.age,
+            'photo': student.photo
+        })
+    except Student.DoesNotExist:
+        return JsonResponse({'error': 'Invalid credentials'}, status=400)
